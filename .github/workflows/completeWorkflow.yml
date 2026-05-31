@@ -6,14 +6,15 @@ on:
       - main
 
 jobs:
-  build-test:
-
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -21,18 +22,22 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Build project
+      - name: Verify dependencies
+        working-directory: Battleship-main
+        run: mvn dependency:resolve
+
+      - name: Compile project
         working-directory: Battleship-main
         run: mvn clean compile
 
-      - name: Run tests
+      - name: Run unit tests
         working-directory: Battleship-main
         run: mvn test
 
-      - name: Build JAR
+      - name: SonarQube Cloud analysis
         working-directory: Battleship-main
-        run: mvn package
-
-      - name: Build Docker image
-        working-directory: Battleship-main
-        run: docker build -t battleship-game:latest .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.organization=${{ secrets.SONAR_ORGANIZATIO
