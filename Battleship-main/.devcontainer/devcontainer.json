@@ -2,5 +2,15 @@
   "name": "Battleship Development",
   "build": {
     "dockerfile": "Dockerfile"
-  }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "github.vscode-github-actions",
+        "yzhang.markdown-all-in-one"
+      ]
+    }
+  },
+  "postCreateCommand": "mvn clean compile"
 }
