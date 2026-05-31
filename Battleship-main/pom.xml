@@ -13,7 +13,7 @@
 
   <name>Battleship</name>
   <description>A simple Battleship.</description>
-  <url>https://github.com/alopes-iul/Battleship</url>
+  <url>https://github.com/IGE-92500/Discoveri--esBattleshipGame</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -84,10 +84,39 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version>
+        <configuration>
+          <outputDirectory>${project.basedir}/docs</outputDirectory>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
-
+  <reporting>
+    <outputDirectory>${project.basedir}/docs</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
-
